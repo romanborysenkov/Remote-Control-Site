@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Remote Control</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      display: flex;
+      flex-direction: row;
+      font-family: system-ui, sans-serif;
+    }
+    button {
+      flex: 1;
+      min-height: 100vh;
+      border: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      transition: background 0.08s ease;
+    }
+    #left {
+      background: #000;
+      color: #fff;
+    }
+    #left:active { background: #333; }
+    #right {
+      background: #fff;
+      color: #000;
+    }
+    #right:active { background: #ccc; }
+    #status {
+      position: fixed;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0.5rem 1rem;
+      font-size: 2rem;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 2rem;
+      backdrop-filter: blur(6px);
+      pointer-events: none;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="status">Підключення...</div>
+  <button id="left" type="button">← Попередній <br> слайд</button>
+  <button id="right" type="button">Наступний <br> слайд →</button>
+
+  <script>
+    const statusEl = document.getElementById('status');
+    const params = new URLSearchParams(location.search);
+    const wsHost = params.get('server') || params.get('host') || location.hostname;
+    const wsPort = params.get('port') || '8765';
+    const wsScheme = location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${wsScheme}//${wsHost}:${wsPort}`;
+    let ws = null;
+
+    function connect() {
+      ws = new WebSocket(wsUrl);
+      ws.onopen = () => { statusEl.textContent = 'Підключено'; };
+      ws.onclose = () => {
+        statusEl.textContent = 'Відключено. Перепідключення...';
+        setTimeout(connect, 2000);
+      };
+      ws.onerror = () => { statusEl.textContent = 'Помилка з\'єднання'; };
+    }
+
+    function send(cmd) {
+      if (ws && ws.readyState === WebSocket.OPEN) ws.send(cmd);
+    }
+
+    document.getElementById('left').onclick = () => send('left');
+    document.getElementById('right').onclick = () => send('right');
+
+    connect();
+  </script>
+</body>
+</html>

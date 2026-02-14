@@ -1,0 +1,2 @@
+// Іконка .exe. Поклади app.ico в Server/src/. Якщо файлу немає — не додавай app.rc у CMakeLists.
+1 ICON "app.ico"

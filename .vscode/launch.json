@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/romsyaborysenko/Documents/programming/C++/RemoteControl/SiteForRemoteControl/Server/src",
+      "program": "/Users/romsyaborysenko/Documents/programming/C++/RemoteControl/SiteForRemoteControl/Server/src/build/Debug/outDebug"
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+/Users/romsyaborysenko/Documents/programming/C++/RemoteControl/SiteForRemoteControl/Server/build/CMakeFiles/RemoteControlServer.dir
+/Users/romsyaborysenko/Documents/programming/C++/RemoteControl/SiteForRemoteControl/Server/build/CMakeFiles/edit_cache.dir
+/Users/romsyaborysenko/Documents/programming/C++/RemoteControl/SiteForRemoteControl/Server/build/CMakeFiles/rebuild_cache.dir
